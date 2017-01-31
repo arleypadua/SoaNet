@@ -27,8 +27,8 @@ namespace SoaNet.Components.Services.StepStatusExecutors
             var processDatas = (IEnumerable<ProcessData>)null; // TODO: get data from repositories where id 
             processDatas = processDatas.Where(d => stepDefinitionDataIds.Contains(d.DataDefinitionId));
 
-            var headerData = processDatas.Where(d => d.DataDefinition.IsHeaderData);
-            var bodyData = processDatas.Where(d => !d.DataDefinition.IsHeaderData);
+            var headerData = processDatas.Where(d => !d.DataDefinition.IsBodyData);
+            var bodyData = processDatas.Where(d => d.DataDefinition.IsBodyData);
 
             if (bodyData.Count() > 1)
                 throw new InvalidOperationException("A process step cannot have more than one body data.");

@@ -14,6 +14,6 @@ namespace SoaNet.Components.Model.Soa
 
         public Guid DataDefinitionId { get; set; }
         public string DataDefinitionName { get; set; }
-        public bool IsHeaderData { get; set; }
+        public bool IsBodyData { get; set; }
     }
 }
