@@ -26,8 +26,7 @@ namespace SoaNet.Examples
                         var currencyRate = step1.Result.Data;
                         
                         return new { usd_brl = Convert.ToDecimal(currencyRate.rates.BRL.ToString()) };
-                    },
-                    out refSendEmail);
+                    });
             
             return builder.Build();
         }
