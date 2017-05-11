@@ -9,15 +9,14 @@ namespace SoaNet.Examples
         public Process BuildExample()
         {
             Guid refGetCurrencyRate = Guid.Empty;
-            Guid refSendEmail = Guid.Empty;
 
             ProcessBuilder builder = new ProcessBuilder();
             builder
-                // Obtendo a cotação atual
+                // Step 1 Getting USD rates
                 .Do("http://api.fixer.io/latest?base=USD&symbols=GBP,BRL",
                     out refGetCurrencyRate)
 
-                // Calculando o total com a cotação atual
+                // Calling a api using the result of the first step
                 .Do("http://soa-net.test/api/calculate-total/",
                     "POST",
                     () =>
@@ -26,8 +25,7 @@ namespace SoaNet.Examples
                         var currencyRate = step1.Result.Data;
                         
                         return new { usd_brl = Convert.ToDecimal(currencyRate.rates.BRL.ToString()) };
-                    },
-                    out refSendEmail);
+                    });
             
             return builder.Build();
         }
