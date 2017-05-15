@@ -8,7 +8,7 @@ namespace SoaNet.Examples
     {
         public static void Main(string[] args)
         {
-            var example = new LazyParameterExample();
+            var example = new AsyncStepsExample();
             var builtExample = example.BuildExample();
 
             builtExample.Run();

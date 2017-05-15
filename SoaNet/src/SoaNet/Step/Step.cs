@@ -5,31 +5,78 @@ using System.Text;
 
 namespace SoaNet.Step
 {
-    public class Step : IStepProtocol
+    public abstract class Step : IStep
     {
-        public Step(string url, string method, object data)
+        public Step()
         {
             Reference = Guid.NewGuid();
-
-            Url = url;
-            Method = method;
-            RequestData = data;
         }
 
-        public Guid Reference { get; private set; }
+        public Guid Reference { get; protected set; }
+        public DateTime? Start { get; set; }
+        public DateTime? End { get; set; }
+        public bool StopProcessOnError { get; set; }
+        public bool HasExecutionError { get; set; }
 
-        public StepResult Result { get; private set; }
+        public event OnStartStepDelegate OnStart;
+        public event OnSuccessStepDelegate OnSuccess;
+        public event OnFailStepDelegate OnFail;
+        public event OnFinishStepDelegate OnFinish;
 
-        public string Url { get; private set; }
-        public string Method { get; private set; }
-        public object RequestData { get; private set; }
+        protected abstract void Execute();
 
         public void ExecuteStep()
         {
-            var result = HttpHelper.HttpServiceRequest.RequestService<object>(Url, Method, RequestData).Result;
-            Result = new StepResult(result);
+            try
+            {
+                SetStart();
+                OnStart?.Invoke(Reference);
 
-            return;
+                Execute();
+                OnSuccess?.Invoke(Reference, this);
+
+                SetEnd();
+            }
+            catch (Exception e)
+            {
+                HasExecutionError = true;
+                OnFail?.Invoke(Reference, e);
+            }
+            finally
+            {
+                OnFinish?.Invoke(Reference);
+            }
         }
+
+        public virtual bool ShouldStop()
+        {
+            return StopProcessOnError && HasExecutionError;
+        }
+
+        public void SetOptions(StepOptions options)
+        {
+            StopProcessOnError = options.StopProcessOnError;
+
+            if (options.OnStart != null) OnStart += options.OnStart.Invoke;
+            if (options.OnSuccess != null) OnSuccess += options.OnSuccess.Invoke;
+            if (options.OnFail != null) OnFail += options.OnFail.Invoke;
+            if (options.OnFinish != null) OnFinish += options.OnFinish.Invoke;
+        }
+
+        private void SetStart()
+        {
+            Start = DateTime.Now;
+        }
+
+        private void SetEnd()
+        {
+            End = DateTime.Now;
+        }
+    }
+
+    public abstract class Step<TResult> : Step, IStep<TResult>
+    {
+
+        public IStepResult<TResult> Result { get; protected set; }
     }
 }

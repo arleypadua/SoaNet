@@ -7,19 +7,32 @@ using System.Text;
 
 namespace SoaNet.Step
 {
-    public class StepResult
+    /// <summary>
+    /// A class containing the step execution result
+    /// </summary>
+    public class StepResult<TResult> : IStepResult<TResult>
     {
-        public StepResult(dynamic data)
+        public StepResult()
+        {
+        }
+
+        public StepResult(TResult data)
         {
             this.data = data;
         }
 
-        private dynamic data;
-        public dynamic Data
+        private TResult data;
+
+        public TResult Data
         {
             get
             {
                 return data;
+            }
+
+            protected set
+            {
+                data = value;
             }
         }
     }

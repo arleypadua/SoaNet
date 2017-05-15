@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace SoaNet.HttpHelper
 {
+    /// <summary>
+    /// A class that helps calling REST Api's
+    /// </summary>
     public class HttpServiceRequest
     {
-        public static async Task<T> RequestService<T>(string url, string method, object requestData)
+        public static async Task<T> RequestServiceAsync<T>(string url, HttpMethod method, object requestData)
         {
             HttpClient client = new HttpClient();
-            if (method == "GET")
+            if (method == HttpMethod.Get)
             {
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
@@ -20,7 +23,7 @@ namespace SoaNet.HttpHelper
 
                 return JsonConvert.DeserializeObject<T>(stringResponse);
             }
-            else if (method == "POST")
+            else if (method == HttpMethod.Post)
             {
                 var serializedObject = JsonConvert.SerializeObject(requestData);
                 HttpResponseMessage response = await client.PostAsync(url, new StringContent(serializedObject, Encoding.UTF8, "application/json"));
@@ -30,7 +33,7 @@ namespace SoaNet.HttpHelper
                 var stringResponse = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<T>(stringResponse);
             }
-            else if (method == "PUT")
+            else if (method == HttpMethod.Put)
             {
                 var serializedObject = JsonConvert.SerializeObject(requestData);
                 HttpResponseMessage response = await client.PutAsync(url, new StringContent(serializedObject, Encoding.UTF8, "application/json"));
@@ -40,7 +43,7 @@ namespace SoaNet.HttpHelper
                 var stringResponse = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<T>(stringResponse);
             }
-            else if (method == "DELETE")
+            else if (method == HttpMethod.Delete)
             {
                 var serializedObject = JsonConvert.SerializeObject(requestData);
                 HttpResponseMessage response = await client.DeleteAsync(url);

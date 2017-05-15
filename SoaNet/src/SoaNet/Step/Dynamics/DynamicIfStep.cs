@@ -4,27 +4,25 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace SoaNet.Step
+namespace SoaNet.Step.Dynamics
 {
-    public class IfStep : IStepProtocol
+    /// <summary>
+    /// A class that represents a conditional step
+    /// </summary>
+    public class DynamicIfStep : DynamicStep
     {
-        public IfStep(Func<bool> expression, IStepProtocol truePart, IStepProtocol falsePart)
+        public DynamicIfStep(Func<bool> expression, DynamicStep truePart, DynamicStep falsePart)
         {
-            Reference = Guid.NewGuid();
-
             BoolExpression = expression;
             TruePart = truePart;
             FalsePart = falsePart;
         }
-
-        public Guid Reference { get; private set; }
         
-        public StepResult Result { get; private set; }
-        public IStepProtocol TruePart { get; private set; }
-        public IStepProtocol FalsePart { get; private set; }
+        public DynamicStep TruePart { get; private set; }
+        public DynamicStep FalsePart { get; private set; }
         public Func<bool> BoolExpression { get; private set; }
 
-        public void ExecuteStep()
+        protected override void Execute()
         {
             if (BoolExpression())
             {
@@ -36,8 +34,6 @@ namespace SoaNet.Step
                 FalsePart.ExecuteStep();
                 Result = FalsePart.Result;
             }
-
-            return;
         }
     }
 }
