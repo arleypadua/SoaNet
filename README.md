@@ -2,8 +2,9 @@
 A fluent API that you can use to build processes using the SOA concept and RESTful services.
 
 ## Features
+* Easy to extend
 * Step-by-Step execution
-* Support to REST APIs
+* Native support to REST APIs
 * Step for "if" conditions
 * Asynchronous steps
 
