@@ -37,7 +37,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
     
     **P.S**.: The extension method ForceUseTestOptions() is part of "SoaNet.Process.Extensions.Test" namespace and outputs a log in the console for every process event: OnStart, OnSuccess, OnFail and OnFinish. You can find more information on how to use those events opening example classes on SoaNet.Examples project.
 
-6) In case you want to add an conditional step, use the following extension method:
+6) In case you want to add a conditional step, use the following extension method:
     ```sh
     builder
         .If(() => { return (1 + 1) == 2; }, // Boolean lambda expression
