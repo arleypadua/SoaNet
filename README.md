@@ -6,27 +6,21 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
 * Support to REST APIs
 * Step for "if" conditions
 * Asynchronous steps
- 
-## Todo
-* Create nuget package
 
 ## Getting Started
-1) Clone this repository: 
+1) Install the NuGet package: 
     ```sh
-    $ git clone https://github.com/arleypadua/soa-net
+    PM> Install-Package SoaNet
     ```
-2) Open the solution file "SoaNet.sln"
 
-3) Add a new class on the SoaNet.Examples project
-
-4) Add the usings:
+2) Add usings to your code:
     ```sh
     using SoaNet.Process;
     using SoaNet.Process.Extensions.Http;
     using SoaNet.Process.Extensions.Test;
     ```
     
-5) Start calling your services:
+3) Start calling your services:
     ```sh
     ProcessBuilder builder = new ProcessBuilder();
     builder
@@ -37,7 +31,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
     
     **P.S**.: The extension method ForceUseTestOptions() is part of "SoaNet.Process.Extensions.Test" namespace and outputs a log in the console for every process event: OnStart, OnSuccess, OnFail and OnFinish. You can find more information on how to use those events opening example classes on SoaNet.Examples project.
 
-6) In case you want to add a conditional step, use the following extension method:
+4) In case you want to add a conditional step, use the following extension method:
     ```sh
     builder
         .If(() => { return (1 + 1) == 2; }, // Boolean lambda expression
@@ -45,7 +39,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
             builder.CreateHttpStep("https://false-part-service"));
     ```
     
-7) To use a data that was returned in any past step:
+5) To use a data that was returned in any past step:
     ```sh
     var step = builder.CreateHttpStep("https://get-service.foo");
     builder
@@ -60,7 +54,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
             });
     ```
     
-8) For those cases that you want to execute more than one step at once:    
+6) For those cases that you want to execute more than one step at once:    
     ```sh
     builder
         .AddAsyncSteps(
@@ -68,7 +62,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
             builder.CreateHttpStep("https://get-service.bar"));
     ```
 
-9) Finally, you must build the process, and then run it!
+7) Finally, you must build the process, and then run it!
     ```sh
     var builtProcess = builder.Build();
     builtProcess.Run();
