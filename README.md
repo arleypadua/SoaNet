@@ -74,4 +74,4 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
     builtProcess.Run();
     ```
 
-You may use it as your will. Just **help me improve it** and **give me some credits** while you are coding =)
+You may use it as your will. Just **help me improve it** =)
