@@ -13,7 +13,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
 ## Getting Started
 1) Clone this repository: 
     ```sh
-    $ git clone https://github.com/arleypadua
+    $ git clone https://github.com/arleypadua/soa-net
     ```
 2) Open the solution file "SoaNet.sln"
 
