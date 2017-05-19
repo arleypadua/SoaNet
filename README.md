@@ -40,7 +40,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
             builder.CreateHttpStep("https://false-part-service"));
     ```
     
-5) To use a data that will be returned in any past step:
+5) To use a data that will be returned in any step:
     ```sh
     var step = builder.CreateHttpStep("https://get-service.foo");
     builder
