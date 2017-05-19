@@ -50,7 +50,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
             () =>
             {
                 // Return the object with the new request body
-                // This will be serialized into a json object
+                // This will be serialized into a json string
                 return new { requestParam = step.Result.Data.SomeResult };
             });
     ```
