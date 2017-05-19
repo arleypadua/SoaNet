@@ -1,4 +1,4 @@
-# Soa-Net
+# SoaNet
 A fluent API that you can use to build processes using the SOA concept and RESTful services.
 
 ## Features
