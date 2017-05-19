@@ -35,7 +35,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
         .AddStep("https://post-service.bar", HttpMethod.Post, new { someParameter = "someData" });
     ```
     
-    **P.S**.: The extension method ForceUseTestOptions() outputs a log in the console for every process event: OnStart, OnSuccess, OnFail and OnFinish. You can find more information on how to use those events opening the example classes.
+    **P.S**.: The extension method ForceUseTestOptions() outputs a log in the console for every process event: OnStart, OnSuccess, OnFail and OnFinish. You can find more information on how to use those events opening example classes on SoaNet.Examples project.
 
 6) In case you want to add an conditional step, use the following extension method:
     ```sh
@@ -55,7 +55,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
             () =>
             {
                 // Return the object with the new request body
-                // This will be serialized to a json object
+                // This will be serialized into a json object
                 return new { requestParam = step.Result.Data.SomeResult };
             });
     ```
@@ -74,4 +74,4 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
     builtProcess.Run();
     ```
 
-You may use it as your will. Just **help me improve it** and **give me some credits =)**
+You may use it as your will. Just **help me improve it** and **give me some credits** while you are coding =)
