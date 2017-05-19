@@ -14,7 +14,7 @@ A fluent API that you can use to build processes using the SOA concept and RESTf
     PM> Install-Package SoaNet
     ```
 
-2) Add usings to your code:
+2) Add following usings to your code:
     ```sh
     using SoaNet.Process;
     using SoaNet.Process.Extensions.Http;
